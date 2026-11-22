@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SupportPilot AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0a0f2c;--bg2:#101744;--ink:#eceeff;--mut:#9aa3d6;--v:#7c3aff;--v2:#b69cff;--ok:#4ade80;--warn:#fbbf24;--line:rgba(255,255,255,.1);--glass:rgba(255,255,255,.05);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:radial-gradient(900px 500px at 85% -5%,#3b1fa8 0,transparent 60%),radial-gradient(700px 500px at -10% 30%,#1b2a7a 0,transparent 60%),var(--bg);color:var(--ink);font:16px/1.55 "Instrument Sans",system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.05;margin:0;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--v2);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:20px;display:flex;gap:8px;align-items:center;cursor:pointer}
+.logo i{width:22px;height:22px;border-radius:7px 7px 7px 2px;background:linear-gradient(135deg,var(--v),#4f7cff);display:inline-block}
+.links{display:flex;gap:18px;align-items:center;color:var(--mut)}
+.btn{border:0;border-radius:10px;padding:10px 18px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,var(--v),#5b6bff);color:#fff;display:inline-block;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,58,255,.4)}
+.btn.ghost{background:var(--glass);border:1px solid var(--line)}
+.btn.sm{padding:6px 12px;font-size:14px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:56px 0 70px}
+.hero h1{font-size:clamp(40px,6vw,68px);font-weight:800}
+.hero p{color:var(--mut);font-size:18px;max-width:46ch}
+.cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.who{margin-top:28px;color:var(--mut);font-size:14px}
+.chat{display:flex;flex-direction:column;height:430px;overflow:hidden}
+.chat header{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.msgs{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:85%;padding:9px 13px;border-radius:14px;font-size:15px}
+.m.u{align-self:flex-end;background:var(--v);border-bottom-right-radius:4px}
+.m.b{background:rgba(255,255,255,.08);border-bottom-left-radius:4px}
+.m small{display:block;color:var(--v2);margin-top:4px;font-size:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 10px}
+.chip{border:1px solid var(--line);background:transparent;border-radius:99px;padding:5px 11px;font-size:13px;cursor:pointer;color:var(--mut)}
+.chip:hover{border-color:var(--v2);color:var(--ink)}
+.send{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+input,select,textarea{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+select option{background:var(--bg2)}
+section{padding:60px 0}
+section h2{font-size:clamp(30px,4vw,44px);margin-bottom:12px}
+.sub{color:var(--mut);max-width:56ch;margin:0 0 32px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{padding:22px}
+.card h3{font-size:20px;margin-bottom:6px}
+.card p{color:var(--mut);margin:0}
+.price{font-family:"Bricolage Grotesque";font-size:38px;font-weight:800;margin:10px 0}
+.price small{font-size:14px;color:var(--mut);font-weight:400}
+.card ul{padding-left:18px;color:var(--mut);margin:0 0 18px}
+.card.pop{border-color:var(--v2);box-shadow:0 0 0 1px var(--v2),0 20px 60px rgba(124,58,255,.25)}
+.tag{background:var(--v);border-radius:99px;font-size:12px;padding:2px 9px;margin-left:6px;vertical-align:middle}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-size:14px}
+.auth{max-width:420px;margin:50px auto;padding:30px}
+.auth h2{font-size:32px;margin-bottom:6px}
+.auth label{display:block;margin:14px 0 5px;font-size:14px;color:var(--mut)}
+.err{color:#ff8a9b;font-size:14px;min-height:20px;margin-top:10px}
+.okm{color:var(--ok)}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.side{padding:20px 14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px;background:rgba(6,9,30,.5)}
+.side a{padding:9px 12px;border-radius:10px;color:var(--mut);cursor:pointer}
+.side a.on,.side a:hover{background:var(--glass);color:var(--ink)}
+.main{padding:28px;min-width:0}
+.main h2{font-size:30px;margin-bottom:18px}
+.stat{font-family:"Bricolage Grotesque";font-size:36px;font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:500}
+.pill{border-radius:99px;padding:2px 9px;font-size:12px;background:rgba(74,222,128,.15);color:var(--ok)}
+.pill.e{background:rgba(251,191,36,.15);color:var(--warn)}
+.two{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.row{display:flex;gap:10px;margin-bottom:10px}
+code,pre{background:rgba(0,0,0,.35);border-radius:8px;padding:10px;display:block;overflow-x:auto;font-size:13px;white-space:pre-wrap;word-break:break-all}
+.scroll{overflow-x:auto}
+@media(max-width:860px){.hero,.two{grid-template-columns:1fr}.app{grid-template-columns:1fr}.side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.side a{white-space:nowrap}.links .hide{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head>
+<body><div id="root"></div>
+<script>window.API_URL=""; /* set to your API address only if the site is hosted separately from the backend */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const mem={};
+const J=(k,d)=>{if(k in mem)return mem[k];try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}};
+const S=(k,v)=>{mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const H=async(p,e)=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(e+':'+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const PLANS={starter:{n:'Starter',p:'₹2,000',a:1},growth:{n:'Growth',p:'₹5,000',a:5},business:{n:'Business',p:'₹10,000',a:20}};
+const SAMPLE=`Our clinic is open Monday to Saturday from 9 AM to 8 PM. We are closed on Sundays.
+A general consultation costs ₹500. A specialist consultation costs ₹900.
+You can book an appointment on WhatsApp or by calling the front desk.
+Lab reports are ready within 24 hours and are sent on WhatsApp.
+We accept UPI, cards and cash. Most major health insurance plans are accepted.`;
+const stop=new Set('the a an is are what do you i to of for and in on at can how my your it me we with does when'.split(' '));
+const tk=s=>(s.toLowerCase().match(/[a-z0-9₹]+/g)||[]).filter(w=>!stop.has(w));
+function ans(q,docs){const qt=new Set(tk(q));let best=null,bs=0;for(const d of docs)for(const c of d.text.split(/(?<=[.!?])\s+|\n+/)){if(!c.trim())continue;const s=tk(c).filter(w=>qt.has(w)).length;if(s>bs){bs=s;best={c:c.trim(),d:d.name}}}return best}
+let tab='overview',pg=[],cur=0;
+const $=id=>document.getElementById(id);
+
+/* ---------- views ---------- */
+const nav=()=>`<nav><div class="logo" onclick="location.hash='home'"><i></i>SupportPilot AI</div><div class="links"><a class="hide" href="#features" onclick="jump(event,'features')">Features</a><a class="hide" href="#pricing" onclick="jump(event,'pricing')">Pricing</a>${me()?`<a class="btn sm" href="#app">Dashboard</a>`:`<a href="#login">Log in</a><a class="btn sm" href="#register">Start free</a>`}</div></nav>`;
+function jump(e,id){e.preventDefault();const el=$(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+function home(){return`<div class="wrap">${nav()}
+<div class="hero"><div><h1>The front desk that never goes home.</h1><p>Give your clinic, college or shop an AI agent that answers customers from your own documents, on your website and WhatsApp, and hands over to your team when it isn’t sure.</p><div class="cta"><a class="btn" href="#register">Create your agent</a><a class="btn ghost" href="#pricing" onclick="jump(event,'pricing')">See pricing</a></div><div class="who">Built for hospitals, colleges, stores, hotels and local services.</div></div>
+<div class="glass chat"><header><span class="dot"></span>Sunrise Clinic assistant</header><div class="msgs" id="dm"><div class="m b">Hi! Ask me about timings, fees or reports. This demo reads a real clinic document.</div></div><div class="chips">${['When are you open?','How much is a consultation?','Do you take insurance?'].map(q=>`<button class="chip" onclick="demo('${q}')">${q}</button>`).join('')}</div><form class="send" onsubmit="demo(this.q.value);this.q.value='';return false"><input name="q" placeholder="Type a question" aria-label="Question"><button class="btn">Send</button></form></div></div>
+<section id="features"><h2>Everything a support team needs</h2><p class="sub">From the first question to the handover, in one workspace.</p><div class="grid">${[['Answers from your documents','Upload PDF, DOCX or TXT files. Replies come from your content, with the source named.'],['Agents per business','Create separate agents for each department, branch or brand, each with its own knowledge.'],['Live inbox','See every conversation and which ones the agent passed to your team.'],['Website and WhatsApp','Paste one snippet on your site or connect your WhatsApp Business number.'],['Analytics','Track questions, resolution rate and the topics customers ask about most.'],['Secure accounts','Passwords are hashed, sessions are protected and each business sees only its own data.']].map(([t,d])=>`<div class="glass card"><h3>${t}</h3><p>${d}</p></div>`).join('')}</div></section>
+<section id="how"><h2>Live in an afternoon</h2><p class="sub">No developers needed. Most businesses finish setup in a few hours.</p><div class="grid">${[['Add your documents','Upload your FAQs, fee lists, timetables or policies. Your agent learns only from what you give it.'],['Test and tune','Ask your agent real customer questions in the playground and see which ones it passes to your team.'],['Go live','Add the widget to your website or connect WhatsApp, then watch conversations arrive in your inbox.']].map(([t,d])=>`<div class="glass card"><h3>${t}</h3><p>${d}</p></div>`).join('')}</div></section>
+<section id="uses"><h2>Made for businesses that answer the same questions all day</h2><p class="sub">Examples of what customers ask your agent.</p><div class="grid">${[['Hospitals and clinics','Doctor availability, OPD timings, consultation fees, report collection and insurance.'],['Colleges and universities','Admission dates, course fees, eligibility, scholarships and hostel details.'],['Online and local stores','Order status, return policy, delivery areas, sizes and payment options.'],['Hotels and services','Room rates, check-in times, bookings, cancellations and nearby places.']].map(([t,d])=>`<div class="glass card"><h3>${t}</h3><p>${d}</p></div>`).join('')}</div></section>
+<section id="pricing"><h2>Simple monthly pricing</h2><p class="sub">Illustrative starting prices. We’ll adjust them as we learn from real customers.</p><div class="grid">
+${[['starter','1 AI agent','Basic knowledge base','Website chatbot'],['growth','5 AI agents','Advanced answers from documents','Analytics'],['business','20 AI agents','Team inbox','Website and WhatsApp']].map(([k,...f])=>`<div class="glass card ${k=='growth'?'pop':''}"><h3>${PLANS[k].n}${k=='growth'?'<span class="tag">Popular</span>':''}</h3><div class="price">${PLANS[k].p}<small> / month</small></div><ul>${f.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn ${k=='growth'?'':'ghost'}" href="#register">Choose ${PLANS[k].n}</a></div>`).join('')}
+<div class="glass card"><h3>Enterprise</h3><div class="price">Custom</div><ul><li>Custom workflows</li><li>Advanced security</li><li>Dedicated support</li></ul><a class="btn ghost" href="mailto:sales@supportpilot.example">Contact sales</a></div></div></section>
+<section id="faq"><h2>Questions owners ask us</h2><div style="max-width:720px">${[['What if the agent doesn’t know the answer?','It says so, passes the question to your team and marks it “Needs team” in your inbox. It never invents an answer from outside your documents.'],['Which languages does it support?','Customers can ask in English and the common Indian languages. Answers are as good as the documents you upload.'],['How do I pay?','Scan the UPI QR in your dashboard with any UPI app, then enter the 12-digit reference number. We activate your plan after we confirm the payment.'],['Is my business data private?','Each business only sees its own documents and conversations. Passwords are never stored in plain text.'],['Can I cancel anytime?','Yes. Plans run month to month, so you simply don’t renew.']].map(([q,a])=>`<details class="glass card" style="margin-bottom:10px;padding:14px 18px"><summary style="cursor:pointer;font-weight:600">${q}</summary><p style="color:var(--mut);margin:8px 0 0">${a}</p></details>`).join('')}</div></section>
+<footer>© 2026 SupportPilot AI. Your AI customer support platform.</footer></div>`}
+function demo(q){q=q.trim();if(!q)return;const m=$('dm');m.innerHTML+=`<div class="m u">${esc(q)}</div>`;const a=ans(q,[{name:'clinic-info.txt',text:SAMPLE}]);m.innerHTML+=a?`<div class="m b">${esc(a.c)}<small>Source: ${a.d}</small></div>`:`<div class="m b">I’m not sure about that, so I’ve passed it to the front desk.</div>`;m.scrollTop=1e9}
+
+function authView(mode){const reg=mode=='register',fg=mode=='forgot',rs=mode=='reset';
+return`<div class="wrap">${nav()}<form class="glass auth" onsubmit="auth(event,'${mode}')"><h2>${reg?'Create your account':fg?'Reset password':rs?'Choose a new password':'Welcome back'}</h2><p class="sub" style="margin:0">${reg?'Start on the free plan and upgrade any time.':fg?'Enter your email and we’ll send a reset link.':rs?'Use at least 8 characters.':'Log in to your workspace.'}</p>
+${reg?`<label>Business name</label><input name="biz" required autocomplete="organization">`:''}
+${rs?'':`<label>Email</label><input name="email" type="email" required autocomplete="email">`}
+${fg?'':`<label>${rs?'New password':'Password'}</label><input name="pw" type="password" minlength="8" required autocomplete="${reg||rs?'new-password':'current-password'}">`}
+<div class="err" id="err" role="alert"></div><button class="btn" style="width:100%;margin-top:6px">${reg?'Create account':fg?'Send reset link':rs?'Save new password':'Log in'}</button>
+<p style="color:var(--mut);font-size:14px;margin-bottom:0">${reg?'Have an account? <a href="#login"><u>Log in</u></a>':fg||rs?'<a href="#login"><u>Back to log in</u></a>':'<a href="#forgot"><u>Forgot password?</u></a> &nbsp; New here? <a href="#register"><u>Create account</u></a>'}</p></form></div>`}
+
+/* ---------- live backend ---------- */
+const API=(window.API_URL||'').replace(/\/$/,'');
+let T=J('sp_t',null),U=null,C={agents:[],docs:[],convos:[],stats:{},pays:[],admin:[],msgs:{},note:''};
+const me=()=>U&&U.email;
+const PL=Object.assign({free:{n:'Free',p:'₹0',a:1}},PLANS);
+async function api(path,o={}){const h={};if(T)h.Authorization='Bearer '+T;let body=o.body;if(body&&!(body instanceof FormData)){h['Content-Type']='application/json';body=JSON.stringify(body)}
+let r;try{r=await fetch(API+path,{method:o.method||'GET',headers:h,body})}catch{throw Error('Can’t reach the server. Check your connection and try again.')}
+const d=await r.json().catch(()=>({}));
+if(!r.ok){if(r.status==401&&T&&!path.startsWith('/auth')){T=null;U=null;S('sp_t',null);location.hash='login'}throw Error(typeof d.detail=='string'?d.detail:'That didn’t work. Check what you entered and try again.')}return d}
+async function auth(e,mode){e.preventDefault();const f=Object.fromEntries(new FormData(e.target)),er=$('err'),b=e.target.querySelector('button');b.disabled=true;er.className='err';er.textContent='';
+try{if(mode=='register'||mode=='login'){const d=await api('/auth/'+mode,{method:'POST',body:mode=='register'?{biz:f.biz,email:f.email,password:f.pw}:{email:f.email,password:f.pw}});T=d.token;S('sp_t',T);U=d.user;tab='overview';location.hash='app'}
+else if(mode=='forgot'){await api('/auth/forgot',{method:'POST',body:{email:f.email}});er.className='err okm';er.textContent='If this email has an account, a reset link is on its way.'}
+else{await api('/auth/reset',{method:'POST',body:{token:location.hash.split('token=')[1]||'',password:f.pw}});er.className='err okm';er.textContent='Password updated. You can log in now.'}}
+catch(x){er.textContent=x.message}b.disabled=false}
+function logout(){T=null;U=null;S('sp_t',null);C={agents:[],docs:[],convos:[],stats:{},pays:[],admin:[],msgs:{},note:''};location.hash='home'}
+async function refresh(){const [u,a,d,c,s,p]=await Promise.all([api('/me'),api('/agents'),api('/docs-list'),api('/conversations'),api('/stats'),api('/billing/mine')]);U=u;C={...C,agents:a,docs:d,convos:c,stats:s,pays:p};if(U.is_admin)C.admin=await api('/admin/payments')}
+const TABS=[['overview','Overview'],['agents','Agents'],['kb','Knowledge base'],['inbox','Inbox'],['connect','Integrations'],['billing','Billing']];
+function paint(){const r=$('root');if(!U){r.innerHTML='<div class="wrap"><p>Loading…</p></div>';return}r.innerHTML=appHTML();if(tab=='billing')drawQR()}
+function appHTML(){const pl=PL[U.plan]||PL.free,s=C.stats,tabs=TABS.concat(U.is_admin?[['admin','Admin']]:[]),ag=n=>(C.agents.find(x=>x.id==n)||{}).name||'Deleted agent';let body='';
+if(tab=='overview')body=`<h2>Hello, ${esc(U.biz)}</h2><div class="grid">${[['Conversations',s.conversations||0],['Answered by AI',(s.answered_pct||0)+'%'],['Agents',C.agents.length+' / '+pl.a],['Documents',C.docs.length]].map(([l,v])=>`<div class="glass card"><p>${l}</p><div class="stat">${v}</div></div>`).join('')}</div><div class="glass card" style="margin-top:16px"><h3>Get started</h3><p>Create an agent, add a document, then test it in the playground. Your plan: ${pl.n}${U.plan_until?', active until '+new Date(U.plan_until).toLocaleDateString():''}.</p></div>`;
+if(tab=='agents'){const a=C.agents.find(x=>x.id==cur)||C.agents[0],ms=(a&&C.msgs[a.id])||[];
+body=`<h2>Agents</h2><div class="two"><div class="glass card"><h3>New agent</h3><form onsubmit="addAgent(event)"><div class="row"><input name="n" placeholder="Agent name, e.g. Reception" required></div><div class="row"><input name="t" placeholder="Tone, e.g. friendly and brief"></div><button class="btn sm">Create agent</button><div class="err" id="err"></div></form>${C.agents.map(x=>`<div class="row" style="justify-content:space-between;align-items:center"><a href="#" onclick="cur=${x.id};paint();return false"><u>${esc(x.name)}</u></a><button class="btn ghost sm" onclick="delAgent(${x.id})">Remove</button></div>`).join('')||'<p>No agents yet. Create your first one above.</p>'}</div>
+<div class="glass chat" style="height:400px"><header><span class="dot"></span>${a?esc(a.name)+' playground':'Playground'}</header><div class="msgs" id="pm">${a?`<div class="m b">Hi, I’m ${esc(a.name)}. Ask me anything from your knowledge base.</div>`:'<div class="m b">Create an agent to start testing.</div>'}${ms.map(m=>`<div class="m ${m.u?'u':'b'}">${esc(m.t)}</div>`).join('')}</div><form class="send" onsubmit="ask(event)"><input name="q" placeholder="Ask a customer question" ${a?'':'disabled'} aria-label="Question"><button class="btn" ${a?'':'disabled'}>Send</button></form></div></div>`}
+if(tab=='kb')body=`<h2>Knowledge base</h2><div class="two"><div class="glass card"><h3>Add a document</h3><form onsubmit="addDoc(event)"><div class="row"><input name="n" placeholder="Name (for pasted text)"></div><div class="row"><textarea name="t" rows="6" placeholder="Paste your FAQs, price list or policies"></textarea></div><div class="row"><input type="file" name="f" accept=".pdf,.docx,.txt,.md,.csv" aria-label="Upload a PDF, DOCX or TXT file"></div><button class="btn sm">Save document</button><div class="err" id="err"></div></form></div><div class="glass card"><h3>Your documents</h3>${C.docs.map(x=>`<div class="row" style="justify-content:space-between;align-items:center"><span>${esc(x.name)} <span style="color:var(--mut)">(${x.chars} characters)</span></span><button class="btn ghost sm" onclick="delDoc(${x.id})">Remove</button></div>`).join('')||'<p>No documents yet. Add one to teach your agents.</p>'}<button class="btn ghost sm" onclick="up(new File([SAMPLE],'clinic-info.txt'))">Add sample clinic document</button></div></div>`;
+if(tab=='inbox')body=`<h2>Inbox</h2><div class="glass card scroll">${C.convos.length?`<table><tr><th>Time</th><th>Agent</th><th>Customer asked</th><th>Reply</th><th>Status</th></tr>${C.convos.map(c=>`<tr><td>${new Date(c.t+'Z').toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</td><td>${esc(ag(c.agent))}</td><td>${esc(c.q)}</td><td>${esc(c.a)}</td><td><span class="pill ${c.ok?'':'e'}">${c.ok?'Answered':'Needs team'}</span></td></tr>`).join('')}</table>`:'<p>No conversations yet. Chat with an agent in the playground, or add the website widget, and they will appear here.</p>'}</div>`;
+if(tab=='connect'){const id=(C.agents[0]||{}).id||'AGENT_ID';body=`<h2>Integrations</h2><div class="two"><div class="glass card"><h3>Website widget</h3><p>Paste this before the closing body tag of your site. It uses your first agent.</p><code>&lt;script src="${esc(API||location.origin)}/widget.js" data-agent="${id}"&gt;&lt;/script&gt;</code></div><div class="glass card"><h3>WhatsApp Business</h3><p>Connect your number through the WhatsApp Business API. Coming soon for the Business plan.</p><button class="btn ghost sm" disabled>Connect WhatsApp</button></div></div>`}
+if(tab=='billing')body=`<h2>Billing</h2><div class="two"><div class="glass card"><h3>Pay with UPI</h3><p>Current plan: ${pl.n}. Choose a plan, scan the QR with any UPI app, then enter the 12-digit UPI reference (UTR) from your payment app.</p><select id="bp" onchange="drawQR()" aria-label="Plan">${Object.entries(PLANS).map(([k,v])=>`<option value="${k}">${v.n}, ${v.p}/month</option>`).join('')}</select><div style="background:#fff;padding:12px;border-radius:12px;width:fit-content;margin:14px 0;min-width:224px;min-height:50px"><div id="qr"></div></div><p id="qrn" style="font-size:13px"></p><form onsubmit="subPay(event)"><div class="row"><input name="u" inputmode="numeric" pattern="\\d{12}" placeholder="12-digit UTR" required aria-label="UPI reference"></div><button class="btn sm">I have paid</button></form><div class="err ${C.note?'okm':''}" id="err">${esc(C.note)}</div></div><div class="glass card"><h3>Payment history</h3>${C.pays.map(p=>`<p>${PL[p.plan].n}, ₹${p.amount.toLocaleString('en-IN')}, UTR ${esc(p.utr)} <span class="pill ${p.status=='approved'?'':'e'}">${p.status}</span></p>`).join('')||'<p>No payments yet.</p>'}</div></div>`;
+if(tab=='admin')body=`<h2>Payments to confirm</h2><div class="glass card scroll">${C.admin.length?`<table><tr><th>Customer</th><th>Plan</th><th>Amount</th><th>UTR</th><th>Status</th><th></th></tr>${C.admin.map(p=>`<tr><td>${esc(p.email)}</td><td>${PL[p.plan].n}</td><td>₹${p.amount.toLocaleString('en-IN')}</td><td>${esc(p.utr)}</td><td>${p.status}</td><td>${p.status=='pending'?`<button class="btn sm" onclick="decide(${p.id},'approve')">Approve</button> <button class="btn ghost sm" onclick="decide(${p.id},'reject')">Reject</button>`:''}</td></tr>`).join('')}</table>`:'<p>No payments yet.</p>'}<p style="color:var(--mut);font-size:13px">Check the UTR and amount in your bank app before approving.</p></div>`;
+return`<div class="app"><aside class="side"><div class="logo" style="padding:6px 12px 14px" onclick="location.hash='home'"><i></i>SupportPilot</div>${tabs.map(([k,l])=>`<a class="${tab==k?'on':''}" onclick="tab='${k}';C.note='';paint()">${l}</a>`).join('')}<a onclick="logout()" style="margin-top:auto">Log out</a><div style="color:var(--mut);font-size:12px;padding:8px 12px">${esc(U.email)}</div></aside><main class="main">${body}</main></div>`}
+const done=async()=>{await refresh();paint()};
+const fail=x=>{const el=$('err');if(el){el.className='err';el.textContent=x.message}};
+async function addAgent(e){e.preventDefault();const f=new FormData(e.target);try{const a=await api('/agents',{method:'POST',body:{name:f.get('n'),tone:f.get('t')||''}});cur=a.id;await done()}catch(x){fail(x)}}
+async function delAgent(i){try{await api('/agents/'+i,{method:'DELETE'});await done()}catch(x){fail(x)}}
+async function up(file){const fd=new FormData();fd.append('f',file);try{await api('/docs',{method:'POST',body:fd});await done()}catch(x){fail(x)}}
+function addDoc(e){e.preventDefault();const f=e.target,file=f.f.files[0]||new File([f.t.value],(f.n.value||'notes')+'.txt');if(!file.size){fail(Error('Add some text or choose a file.'));return}up(file)}
+async function delDoc(i){try{await api('/docs/'+i,{method:'DELETE'});await done()}catch(x){fail(x)}}
+async function ask(e){e.preventDefault();const a=C.agents.find(x=>x.id==cur)||C.agents[0],q=e.target.q.value.trim();if(!a||!q)return;const ms=(C.msgs[a.id]=C.msgs[a.id]||[]);ms.push({u:1,t:q});paint();
+try{ms.push({t:(await api('/chat',{method:'POST',body:{agent_id:a.id,q}})).answer})}catch(x){ms.push({t:x.message})}paint();$('pm').scrollTop=1e9;refresh().then(()=>{const b=$('pm');if(b)paint()})}
+async function drawQR(){const q=$('qr'),n=$('qrn');if(!q)return;q.innerHTML='';n.textContent='';try{const d=await api('/billing/upi?plan='+$('bp').value);if(!window.QRCode)throw Error('QR code could not load. Check your connection.');q.innerHTML='';new QRCode(q,{text:d.upi_link,width:200,height:200,colorDark:'#000000',colorLight:'#ffffff'});n.textContent='Pay ₹'+d.amount.toLocaleString('en-IN')+' to '+d.payee+'.'}catch(x){n.textContent=x.message}}
+async function subPay(e){e.preventDefault();try{await api('/billing/submit',{method:'POST',body:{plan:$('bp').value,utr:e.target.u.value.trim()}});C.note='Thanks! We’ll confirm your payment and activate your plan.';await done()}catch(x){fail(x)}}
+async function decide(id,a){try{await api('/admin/payments/'+id+'/'+a,{method:'POST'});await done()}catch(x){alert(x.message)}}
+
+/* router */
+function render(){const h=location.hash.slice(1)||'home',r=$('root');
+if(h=='app'){if(!T){location.hash='login';return}paint();refresh().then(paint).catch(x=>r.insertAdjacentHTML('afterbegin','<p class="err" style="padding:10px 20px">'+esc(x.message)+'</p>'));return}
+if((h=='login'||h=='register')&&T){location.hash='app';return}
+const m=h.split('?')[0];r.innerHTML=['login','register','forgot','reset'].includes(m)?authView(m):home();if(!['features','pricing'].includes(h))scrollTo(0,0)}
+addEventListener('hashchange',render);
+(async()=>{if(T){try{U=await api('/me')}catch{T=null;S('sp_t',null)}}render()})();
+</script></body></html>
